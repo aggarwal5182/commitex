@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CommitEx Displays Pvt. Ltd. — Commitment to Execution</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#011c50;
+    --navy-deep:#060c22;
+    --orange:#f45d1d;
+    --paper:#f2f3f1;
+    --steel:#5b6b84;
+    --line:#c7cedb;
+    --ink:#0b1220;
+    --disp: 'Oswald', sans-serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block; width:100%; height:100%; object-fit:cover;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1240px; margin:0 auto; padding:0 32px;}
+  @media(max-width:640px){ .wrap{padding:0 20px;} }
+
+  /* --- signature: blueprint corner marks --- */
+  .frame{position:relative;}
+  .frame::before, .frame::after,
+  .frame .c2::before, .frame .c2::after{
+    content:''; position:absolute; width:16px; height:16px;
+    border:2px solid var(--orange); opacity:0; transition:opacity .35s ease;
+  }
+  .frame::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .frame::after{ top:-1px; right:-1px; border-left:none; border-bottom:none; }
+  .frame .c2::before{ bottom:-1px; left:-1px; border-right:none; border-top:none; }
+  .frame .c2::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+  .frame:hover::before, .frame:hover::after,
+  .frame:hover .c2::before, .frame:hover .c2::after{ opacity:1; }
+
+  .tag{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--orange); font-weight:500;
+  }
+  .dim-rule{
+    display:flex; align-items:center; gap:12px; color:var(--steel);
+    font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  }
+  .dim-rule::before, .dim-rule::after{ content:''; flex:1; height:1px; background:var(--line); }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(1,28,80,.96); backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; height:76px; }
+  .logo{ font-family:var(--disp); font-size:22px; font-weight:600; color:#fff; letter-spacing:.02em; }
+  .logo span{ color:var(--orange); }
+  .nav-links{ display:flex; gap:36px; }
+  .nav-links a{
+    color:#c9d3e8; font-family:var(--mono); font-size:12.5px; letter-spacing:.1em;
+    text-transform:uppercase; transition:color .2s;
+  }
+  .nav-links a:hover{ color:var(--orange); }
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:#fff; border:1px solid rgba(255,255,255,.3); padding:9px 16px;
+  }
+  .nav-cta:hover{ border-color:var(--orange); color:var(--orange); }
+  .menu-btn{ display:none; background:none; border:0; color:#fff; font-size:26px; cursor:pointer; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:var(--navy); color:#fff; position:relative; overflow:hidden;
+    padding:88px 0 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size:44px 44px;
+  }
+  .hero::after{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse at 75% 15%, rgba(244,93,29,.18), transparent 55%);
+    pointer-events:none;
+  }
+  .hero-inner{ position:relative; z-index:2; }
+  .eyebrow{
+    display:flex; align-items:center; gap:10px; color:var(--orange);
+    font-family:var(--mono); font-size:12px; letter-spacing:.2em; text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{ content:''; width:26px; height:1px; background:var(--orange); }
+  h1.headline{
+    font-family:var(--disp); font-weight:700; text-transform:uppercase;
+    font-size:clamp(38px, 6vw, 74px); line-height:1.02; letter-spacing:.005em;
+    max-width:920px;
+  }
+  h1.headline em{ font-style:normal; color:var(--orange); }
+  .hero-sub{
+    max-width:520px; margin-top:22px; color:#c9d3e8; font-size:16.5px; line-height:1.65;
+  }
+  .hero-ctas{ display:flex; gap:14px; margin-top:36px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:13px; letter-spacing:.08em; text-transform:uppercase;
+    padding:15px 26px; display:inline-flex; align-items:center; gap:10px;
+    border:1px solid transparent; cursor:pointer; transition:all .2s;
+  }
+  .btn-primary{ background:var(--orange); color:#fff; }
+  .btn-primary:hover{ background:#ff7238; }
+  .btn-ghost{ border-color:rgba(255,255,255,.35); color:#fff; }
+  .btn-ghost:hover{ border-color:#fff; }
+
+  .pillars{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:rgba(255,255,255,.12); margin-top:72px;
+    border-top:1px solid rgba(255,255,255,.12);
+  }
+  .pillar{ background:var(--navy); position:relative; aspect-ratio:4/5; overflow:hidden; }
+  .pillar img{ transition:transform .6s ease; filter:grayscale(15%) brightness(.72); }
+  .pillar:hover img{ transform:scale(1.06); }
+  .pillar-label{
+    position:absolute; left:0; right:0; bottom:0; padding:22px 24px;
+    background:linear-gradient(0deg, rgba(1,12,34,.92), transparent);
+  }
+  .pillar-code{ font-family:var(--mono); font-size:11px; color:var(--orange); letter-spacing:.14em; }
+  .pillar-title{ font-family:var(--disp); font-size:22px; text-transform:uppercase; color:#fff; margin-top:4px; }
+  @media(max-width:800px){ .pillars{ grid-template-columns:1fr; } .pillar{ aspect-ratio:16/10; } }
+
+  section{ padding:110px 0; }
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head h2{
+    font-family:var(--disp); text-transform:uppercase; font-weight:600;
+    font-size:clamp(30px,4vw,44px); margin-top:14px; color:var(--navy); line-height:1.05;
+  }
+
+  /* ---------- about ---------- */
+  .about-grid{ display:grid; grid-template-columns:.95fr 1.05fr; gap:64px; align-items:start; }
+  .about-photo{ aspect-ratio:4/5; }
+  .about-photo img{ filter:saturate(1.02); }
+  .about-copy p{ color:var(--steel); font-size:16.5px; line-height:1.8; margin-bottom:18px; }
+  .titleblock{
+    margin-top:32px; border:1px solid var(--line); font-family:var(--mono); font-size:12px;
+  }
+  .titleblock-row{ display:flex; border-top:1px solid var(--line); }
+  .titleblock-row:first-child{ border-top:none; }
+  .titleblock-row div{ padding:12px 16px; flex:1; }
+  .titleblock-row div:first-child{ color:var(--steel); border-right:1px solid var(--line); max-width:150px; text-transform:uppercase; letter-spacing:.06em; }
+  .titleblock-row div:last-child{ color:var(--ink); font-weight:500; }
+  @media(max-width:860px){ .about-grid{ grid-template-columns:1fr; } .about-photo{ aspect-ratio:16/9; } }
+
+  /* ---------- services ---------- */
+  .services{ background:var(--navy); color:#fff; }
+  .services .section-head .tag{ color:var(--orange); }
+  .services .section-head h2{ color:#fff; }
+  .services .dim-rule{ color:#93a2bf; }
+  .services .dim-rule::before, .services .dim-rule::after{ background:rgba(255,255,255,.15); }
+  .svc-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1px; margin-top:56px; background:rgba(255,255,255,.1); }
+  .svc-card{ background:var(--navy); padding:0; }
+  .svc-photo{ aspect-ratio:16/10; }
+  .svc-photo img{ filter:grayscale(10%) brightness(.85); }
+  .svc-body{ padding:30px 34px 40px; }
+  .svc-num{ font-family:var(--mono); font-size:12px; color:var(--orange); letter-spacing:.1em; }
+  .svc-title{ font-family:var(--disp); font-size:26px; text-transform:uppercase; margin:10px 0 14px; }
+  .svc-body p{ color:#b7c1d9; line-height:1.75; font-size:15px; }
+  @media(max-width:760px){ .svc-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- facilities ---------- */
+  .fac-grid{ display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+  .fac-photos{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .fac-photos .frame:first-child{ grid-column:1/-1; aspect-ratio:16/9; }
+  .fac-photos .frame{ aspect-ratio:1/1; }
+  .cap-list{ list-style:none; margin-top:28px; }
+  .cap-list li{
+    display:flex; align-items:baseline; gap:14px; padding:15px 0;
+    border-top:1px solid var(--line); font-family:var(--mono); font-size:14.5px;
+  }
+  .cap-list li:last-child{ border-bottom:1px solid var(--line); }
+  .cap-list li::before{ content:'+'; color:var(--orange); font-weight:700; font-size:16px; }
+  @media(max-width:860px){ .fac-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- contact / footer ---------- */
+  footer{ background:var(--navy-deep); color:#fff; padding:90px 0 32px; }
+  .contact-inner{ display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; }
+  .contact-left h2{
+    font-family:var(--disp); text-transform:uppercase; font-size:clamp(30px,5vw,52px);
+    line-height:1.05; max-width:520px;
+  }
+  .contact-left h2 em{ font-style:normal; color:var(--orange); }
+  .contact-ctas{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; }
+  .contact-meta{ font-family:var(--mono); font-size:13px; color:#93a2bf; line-height:2; }
+  .contact-meta a:hover{ color:var(--orange); }
+  .foot-bottom{
+    margin-top:80px; padding-top:24px; border-top:1px solid rgba(255,255,255,.1);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-family:var(--mono); font-size:11.5px; color:#6d7c9c; letter-spacing:.06em;
+  }
+
+  @media(max-width:760px){
+    .nav-links, .nav-cta{ display:none; }
+    .menu-btn{ display:block; }
+    section{ padding:72px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo">COMMIT<span>EX</span></a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#facilities">Facilities</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="mailto:asg@commitexdisplays.com">Send Email</a>
+    <button class="menu-btn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-inner">
+    <div class="eyebrow">CommitEx Displays Pvt. Ltd. — NCR, India</div>
+    <h1 class="headline">Commitment to <em>execution</em> for your business goals.</h1>
+    <p class="hero-sub">Fabrication and on-ground execution for exhibitions, retail environments and industrial builds — engineered from concept to install, without the guesswork.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="https://wa.me/910000000000" target="_blank" rel="noopener">Send WhatsApp</a>
+      <a class="btn btn-ghost" href="mailto:asg@commitexdisplays.com">Send Email</a>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <img src="https://loremflickr.com/900/1100/exhibition,tradeshow,booth/all?lock=101" alt="Exhibition stall fabrication">
+        <div class="pillar-label"><div class="pillar-code">01 — STALL / TURNKEY</div><div class="pillar-title">Exhibitions</div></div>
+      </div>
+      <div class="pillar">
+        <img src="https://loremflickr.com/900/1100/retail,storedisplay/all?lock=102" alt="Retail display fabrication">
+        <div class="pillar-label"><div class="pillar-code">02 — POS / DISPLAY</div><div class="pillar-title">Retail</div></div>
+      </div>
+      <div class="pillar">
+        <img src="https://loremflickr.com/900/1100/metalfabrication,sheetmetal/all?lock=103" alt="Custom fabrication workshop">
+        <div class="pillar-label"><div class="pillar-code">03 — SHEET METAL / OEM</div><div class="pillar-title">Custom Fabrication</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="frame about-photo">
+      <div class="c2"></div>
+      <img src="https://loremflickr.com/900/1150/expocenter,convention,building/all?lock=104" alt="India Expo Plaza">
+    </div>
+    <div>
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="tag">About the Company</span>
+        <h2>Built in the NCR.<br>Built for execution.</h2>
+      </div>
+      <div class="about-copy" style="margin-top:26px;">
+        <p>Nestled in the National Capital Region, CommitEx Displays Pvt. Ltd. is a dynamic B2B solutions company specialising in high-quality fabrication and seamless on-ground execution for exhibitions, retail environments, visual merchandising and event infrastructure.</p>
+        <p>With a strong commitment to precision, reliability and craftsmanship, we transform concepts into impactful physical experiences that elevate brand presence. Our integrated approach — spanning design interpretation, material engineering, fabrication and installation — ensures consistency, speed and a superior finish across every project.</p>
+        <p>We don't just build structures. We deliver environments that reflect excellence, reinforce brand identity and drive business outcomes.</p>
+      </div>
+      <div class="titleblock">
+        <div class="titleblock-row"><div>Company</div><div>CommitEx Displays Pvt. Ltd.</div></div>
+        <div class="titleblock-row"><div>Region</div><div>NCR, India</div></div>
+        <div class="titleblock-row"><div>Discipline</div><div>Fabrication &amp; On-Ground Execution</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Services</span>
+      <h2>Four disciplines, one crew.</h2>
+      <div class="dim-rule" style="margin-top:22px;">END TO END</div>
+    </div>
+
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="frame svc-photo"><div class="c2"></div>
+          <img src="https://loremflickr.com/800/500/exhibitionstall,tradeshow/all?lock=105" alt="Exhibition stall">
+        </div>
+        <div class="svc-body">
+          <div class="svc-num">EXH — 01</div>
+          <h3 class="svc-title">Exhibitions</h3>
+          <p>High-impact stalls designed to reflect your brand, executed seamlessly from fabrication through installation. We run turn-key exhibition services — identifying space, creating stall design, fabrication, installation and on-site management for the full duration of the event.</p>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="frame svc-photo"><div class="c2"></div>
+          <img src="https://loremflickr.com/800/500/retailstore,displaystand/all?lock=106" alt="Retail display">
+        </div>
+        <div class="svc-body">
+          <div class="svc-num">RTL — 02</div>
+          <h3 class="svc-title">Retail</h3>
+          <p>High-quality retail displays and POS solutions that strengthen brand presence and influence purchase decisions. We fabricate retail environments and displays in metal, wood, acrylic and more, with hands-on experience exporting retail fixtures to countries outside India.</p>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="frame svc-photo"><div class="c2"></div>
+          <img src="https://loremflickr.com/800/500/stagelighting,concertstage/all?lock=107" alt="Events staging and AV">
+        </div>
+        <div class="svc-body">
+          <div class="svc-num">EVT — 03</div>
+          <h3 class="svc-title">Events &amp; Staging</h3>
+          <p>Stage, light and sound — delivered with precision, reliability and flawless execution. A strong network of hotels and banquets brings great venue, food and beverage deals, backed by an equally strong network of vendors for sound, light and technical equipment at any scale.</p>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="frame svc-photo"><div class="c2"></div>
+          <img src="https://loremflickr.com/800/500/sheetmetal,cncmachine/all?lock=108" alt="Custom fabrication for OEMs">
+        </div>
+        <div class="svc-body">
+          <div class="svc-num">FAB — 04</div>
+          <h3 class="svc-title">Custom Fabrication</h3>
+          <p>Precision sheet metal products, industrial enclosures, structural fabrications and engineered assemblies for OEMs across renewable energy, EV and manufacturing sectors.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="facilities">
+  <div class="wrap fac-grid">
+    <div>
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="tag">Our Facilities</span>
+        <h2>Inside the manufacturing unit.</h2>
+      </div>
+      <ul class="cap-list">
+        <li>CNC laser cutting</li>
+        <li>CNC bending</li>
+        <li>MIG welding</li>
+        <li>Powder coating</li>
+        <li>Fabrication of industrial enclosures and cabinets</li>
+        <li>Equipment frames and structural assemblies</li>
+        <li>Custom sheet metal components and OEM fabrication</li>
+      </ul>
+    </div>
+    <div class="fac-photos">
+      <div class="frame"><div class="c2"></div>
+        <img src="https://loremflickr.com/1100/620/cnclasercutting,metalworkshop/all?lock=109" alt="CNC laser cutting machine">
+      </div>
+      <div class="frame"><div class="c2"></div>
+        <img src="https://loremflickr.com/600/600/migwelding,welder/all?lock=110" alt="MIG welding">
+      </div>
+      <div class="frame"><div class="c2"></div>
+        <img src="https://loremflickr.com/600/600/powdercoating,industrial/all?lock=111" alt="Powder coating">
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap contact-inner">
+    <div class="contact-left">
+      <span class="tag">Contact Us</span>
+      <h2 style="margin-top:14px;">Let's build your <em>next environment.</em></h2>
+      <div class="contact-ctas">
+        <a class="btn btn-primary" href="https://wa.me/910000000000" target="_blank" rel="noopener">Send WhatsApp</a>
+        <a class="btn btn-ghost" href="mailto:asg@commitexdisplays.com">Send Email</a>
+      </div>
+    </div>
+    <div class="contact-meta">
+      EMAIL<br>
+      <a href="mailto:asg@commitexdisplays.com">asg@commitexdisplays.com</a><br><br>
+      LOCATION<br>
+      National Capital Region, India
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <div>COMMITEX DISPLAYS PVT. LTD. — © 2026</div>
+    <div>EXHIBITIONS · RETAIL · EVENTS &amp; STAGING · CUSTOM FABRICATION</div>
+  </div>
+</footer>
+
+</body>
+</html>
