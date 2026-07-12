@@ -63,8 +63,9 @@
     border-bottom:1px solid rgba(255,255,255,.08);
   }
   .nav{ display:flex; align-items:center; justify-content:space-between; height:76px; }
-  .logo{ font-family:var(--disp); font-size:22px; font-weight:600; color:#fff; letter-spacing:.02em; }
-  .logo span{ color:var(--orange); }
+  .logo{ display:flex; align-items:center; }
+  .logo img{ height:34px; width:auto; object-fit:contain; }
+  .logo-badge{ background:#fff; padding:6px 12px; border-radius:4px; display:inline-flex; align-items:center; }
   .nav-links{ display:flex; gap:36px; }
   .nav-links a{
     color:#c9d3e8; font-family:var(--mono); font-size:12.5px; letter-spacing:.1em;
@@ -216,7 +217,7 @@
 
 <header>
   <div class="wrap nav">
-    <a href="#top" class="logo">COMMIT<span>EX</span></a>
+    <a href="#top" class="logo"><span class="logo-badge"><img src="assets/logo_cropped.png" alt="CommitEx Displays"></span></a>
     <nav class="nav-links">
       <a href="#about">About</a>
       <a href="#services">Services</a>
@@ -240,15 +241,15 @@
 
     <div class="pillars">
       <div class="pillar">
-        <img src="https://loremflickr.com/900/1100/exhibition,tradeshow,booth/all?lock=101" alt="Exhibition stall fabrication">
+        <img src="assets/exhibition.png" alt="Exhibition stall fabrication">
         <div class="pillar-label"><div class="pillar-code">01 — STALL / TURNKEY</div><div class="pillar-title">Exhibitions</div></div>
       </div>
       <div class="pillar">
-        <img src="https://loremflickr.com/900/1100/retail,storedisplay/all?lock=102" alt="Retail display fabrication">
+        <img src="assets/retail.png" alt="Retail display fabrication">
         <div class="pillar-label"><div class="pillar-code">02 — POS / DISPLAY</div><div class="pillar-title">Retail</div></div>
       </div>
       <div class="pillar">
-        <img src="https://loremflickr.com/900/1100/metalfabrication,sheetmetal/all?lock=103" alt="Custom fabrication workshop">
+        <img src="assets/fab_machine.jpg" alt="Custom fabrication workshop">
         <div class="pillar-label"><div class="pillar-code">03 — SHEET METAL / OEM</div><div class="pillar-title">Custom Fabrication</div></div>
       </div>
     </div>
@@ -259,7 +260,7 @@
   <div class="wrap about-grid">
     <div class="frame about-photo">
       <div class="c2"></div>
-      <img src="https://loremflickr.com/900/1150/expocenter,convention,building/all?lock=104" alt="India Expo Plaza">
+      <img src="assets/expo_plaza.jpg" alt="India Expo Plaza">
     </div>
     <div>
       <div class="section-head" style="margin-bottom:0;">
@@ -291,7 +292,7 @@
     <div class="svc-grid">
       <div class="svc-card">
         <div class="frame svc-photo"><div class="c2"></div>
-          <img src="https://loremflickr.com/800/500/exhibitionstall,tradeshow/all?lock=105" alt="Exhibition stall">
+          <img src="assets/exhibition.png" alt="Exhibition stall">
         </div>
         <div class="svc-body">
           <div class="svc-num">EXH — 01</div>
@@ -302,7 +303,7 @@
 
       <div class="svc-card">
         <div class="frame svc-photo"><div class="c2"></div>
-          <img src="https://loremflickr.com/800/500/retailstore,displaystand/all?lock=106" alt="Retail display">
+          <img src="assets/retail.png" alt="Retail display">
         </div>
         <div class="svc-body">
           <div class="svc-num">RTL — 02</div>
@@ -313,7 +314,7 @@
 
       <div class="svc-card">
         <div class="frame svc-photo"><div class="c2"></div>
-          <img src="https://loremflickr.com/800/500/stagelighting,concertstage/all?lock=107" alt="Events staging and AV">
+          <img src="assets/event_cricket.png" alt="Events staging and AV">
         </div>
         <div class="svc-body">
           <div class="svc-num">EVT — 03</div>
@@ -324,7 +325,7 @@
 
       <div class="svc-card">
         <div class="frame svc-photo"><div class="c2"></div>
-          <img src="https://loremflickr.com/800/500/sheetmetal,cncmachine/all?lock=108" alt="Custom fabrication for OEMs">
+          <img src="assets/fab_bracket.jpg" alt="Custom fabrication for OEMs">
         </div>
         <div class="svc-body">
           <div class="svc-num">FAB — 04</div>
@@ -355,13 +356,13 @@
     </div>
     <div class="fac-photos">
       <div class="frame"><div class="c2"></div>
-        <img src="https://loremflickr.com/1100/620/cnclasercutting,metalworkshop/all?lock=109" alt="CNC laser cutting machine">
+        <img src="assets/facility_laser_closeup.jpg" alt="APEX fiber laser cutting machine">
       </div>
       <div class="frame"><div class="c2"></div>
-        <img src="https://loremflickr.com/600/600/migwelding,welder/all?lock=110" alt="MIG welding">
+        <img src="assets/facility_powdercoat.jpg" alt="Powder coating booth">
       </div>
       <div class="frame"><div class="c2"></div>
-        <img src="https://loremflickr.com/600/600/powdercoating,industrial/all?lock=111" alt="Powder coating">
+        <img src="assets/facility_laser_wide.jpg" alt="Fabrication shop floor">
       </div>
     </div>
   </div>
@@ -385,7 +386,10 @@
     </div>
   </div>
   <div class="wrap foot-bottom">
-    <div>COMMITEX DISPLAYS PVT. LTD. — © 2026</div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span class="logo-badge"><img src="assets/logo_cropped.png" alt="CommitEx Displays" style="height:20px;"></span>
+      <span>COMMITEX DISPLAYS PVT. LTD. — © 2026</span>
+    </div>
     <div>EXHIBITIONS · RETAIL · EVENTS &amp; STAGING · CUSTOM FABRICATION</div>
   </div>
 </footer>
